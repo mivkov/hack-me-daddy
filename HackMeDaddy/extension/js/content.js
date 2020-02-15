@@ -1,4 +1,4 @@
-sendData = function(str) {
+sendText = function(str) {
   var query = str
   js = JSON.stringify({"text": query})
 
@@ -17,11 +17,35 @@ sendData = function(str) {
       contentType: "application/json; charset=utf-8",
       //data: query,
       data: js,
-      success: success,
+      success: successText,
       error: error,
       complete: complete
   });
+}
 
+sendPhoto = function(str) {
+  var query = str
+  js = JSON.stringify({"text": query})
+
+  url = "https://hack-me-daddy.azurewebsites.net/api/img"
+  $.ajax({
+      url: url,
+      method: 'POST',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader( "Content-type", "application/json" );
+      },
+      jsonp: false,
+      //dataType: "json",
+      //dataType: "text",
+      processData: false,
+      // contentType: "text/plain; charset=utf-8",
+      contentType: "application/json; charset=utf-8",
+      //data: query,
+      data: js,
+      success: successImg,
+      error: error,
+      complete: complete
+  });
 }
 
 complete = function(obj, status) {
@@ -30,12 +54,15 @@ complete = function(obj, status) {
   //console.log(status);
 }
 
-success = function(data, status, obj) {
+successText = function(data, status, obj) {
   //console.log("Success");
   //console.log(data[0].text);
   //console.log(data[0]);
   console.log(data);
-  console.log(JSON.stringify(data));
+  //console.log(JSON.stringify(data));
+  if (data.length !== 0) {
+    createPopup(data)
+  }
   //the thing that does not work
   /*
   var text = document.getElementsByClassName('_1mf _1mj');
@@ -45,7 +72,8 @@ success = function(data, status, obj) {
     if (index >= 0) { 
       innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
       inputText.innerHTML = innerHTML;
-    }*/
+    }
+  */
   
  // curMsg = text[0].innerText;
   //console.log(JSON.parse(data.message));
@@ -53,6 +81,17 @@ success = function(data, status, obj) {
   //console.log(data.message);
   //console.log(status);
   //console.log(obj);
+}
+
+successImg = function(data, status, obj) {
+  //console.log("Success");
+  //console.log(data[0].text);
+  //console.log(data[0]);
+  console.log(data);
+  console.log(JSON.stringify(data));
+  if (data == true) {
+    createPopup(data)
+  }
 }
 
 error = function(obj, status, errThrow) {
@@ -141,20 +180,32 @@ function sleep(ms) {
 async function checkText() {
   // createPopup("HEllo fucker");
   var oldMsg = "";
+  var oldImg = "";
   for(;;){
     var text = document.getElementsByClassName('_1mf _1mj');
+    var img = document.getElementsByClassName("_jfc");
     if (text.length > 0) {
       curMsg = text[0].innerText;
       if (curMsg != oldMsg) {
         oldMsg = curMsg;
-        createPopup(oldMsg);
+        ////////addd in stuff about length of returned message later!!!!
         // Sends the updated message to server
         console.log("found a new message");
-        sendData(oldMsg);
+        sendText(oldMsg);
         //await sleep(500);
         // Awaits response from server
         // receiveData();
-        console.log(":(")
+      }
+    }
+    if (img.length > 0) {
+      currImg = img;
+      if (currImg != oldImg) {
+        oldImg = currImg;
+        imgURL = img.src
+        success = sendPhoto(imgURL)
+        if (success == true) {
+          createPopup("Image may have PII")
+        }
       }
     }
     await sleep(2000);
