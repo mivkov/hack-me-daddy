@@ -4,11 +4,8 @@ block content
   .container
     .welcome 
       .h1 Welcome
-    form
+    form(method="POST" action="/api/grabtext")
       .form-group
-        label(for='facebookURL')
-        input#facebookURL.form-control(type='text', placeholder='Enter your Facebook URL')
+        label(for='profile')
+        input#facebookURL.form-control(type='text', name="profile", placeholder='Enter your Facebook URL')
       button.btn.btn-primary(type='submit') Submit
-
- 
-  
