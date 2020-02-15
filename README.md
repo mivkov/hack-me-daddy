@@ -5,7 +5,7 @@ We’ve all heard the horror stories: one day, some Instagram influencer or musi
 Our application, Social Scrubber, identifies which parts of a Facebook post may contain personally identifiable information (PII). Users install our application as a Chrome Extension which detects when the user is making a Facebook post. The application automatically identifies potential PII in the process of making the post, both in the text box as well as within the uploaded photos. When it identifies potential PII, it warns the user via a pop-up containing the offending information.
 
 # How It Works
-We used the Azure Content Moderation API for text that identifies if a particular piece of text contains personally identiable information (PII). We used Azure's OCR technology to find text and then scanned that text for more PII. The API is hosted on Azure Web Services as part of an Express.js webapp.   
+We used the Azure Content Moderation API for text that identifies if a particular piece of text contains personally identifiable information (PII). We used Azure's OCR technology to find text and then scanned that text for more PII. The API is hosted on Azure Web Services as part of an Express.js webapp.   
 
 ### Installing the Chrome extension:
 
