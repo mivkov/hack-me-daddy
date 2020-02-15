@@ -1,0 +1,25 @@
+{
+    "name": "HackMeDaddy",
+    "version": "1",
+    "manifest_version": 2,
+    "background": {
+        "scripts": ["thirdParty/jquery-3.3.1.min.js",
+            "js/background.js"]
+    },
+    "content_scripts": [
+        {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+            ],
+        "js": ["thirdParty/jquery-3.3.1.min.js", "js/content.js"],
+        "css": ["css/popup.css"]
+        }
+    ],
+    "permissions": [
+        "contextMenus",
+        "tabs",
+        "http://*/*",
+        "https://*/*"
+    ]
+}
