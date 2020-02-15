@@ -78,6 +78,35 @@ indexRouter.post('/api/text', function(req, res) {
   });
 });
 
+let pows = function (url) {
+  var request = new XMLHttpRequest();
+  request.open('GET', url, true);
+  request.responseType = 'blob';
+  request.onload = function() {
+    var reader = new FileReader();
+    reader.readAsDataURL(request.response);
+    reader.onload =  function(e){
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+              const elem = document.createElement('canvas');
+              elem.width = 200;
+              elem.height = 200;
+              const ctx = elem.getContext('2d');
+              // img.width and img.height will contain the original dimensions
+              ctx.drawImage(img, 0, 0, width, height);
+              ctx.canvas.toBlob((blob) => {
+                  const file = new File([blob], "fileName", {
+                      type: 'image/jpeg',
+                      lastModified: Date.now()
+                  });
+              }, 'image/jpeg', 1);
+          },
+          reader.onerror = error => console.log(error);
+    };
+  };
+}
+
 indexRouter.post('/api/img', function(req, res){
   let creds = new CognitiveServicesCredentials("08b28c9251ea4c0fb88f4fff6044f350");
   let client = new ContentModeratorAPIClient(creds, "https://tartanhackstest.cognitiveservices.azure.com/");

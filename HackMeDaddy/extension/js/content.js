@@ -159,7 +159,7 @@ createPopup = function(str) {
   close.onclick = closeDiv
 
   var title = document.createElement("h3")
-  title.innerHTML = "Simplification"
+  title.innerHTML = "Possible Cases of PII"
   var txt = document.createElement("p")
   txt.setAttribute('id', 'fragment-text')
   txt.innerHTML = str
@@ -180,10 +180,31 @@ function sleep(ms) {
 async function checkText() {
   // createPopup("HEllo fucker");
   var oldMsg = "";
-  var oldImg = "";
+  var oldImgs = [];
+  // var oldImg = "";
   for(;;){
     var text = document.getElementsByClassName('_1mf _1mj');
-    var img = document.getElementsByClassName("_jfc");
+
+    var images = document.getElementsByClassName("_jfc");
+    // console.log(images)
+    //console.log(images.length);
+    for (var i = 0; i < images.length; i++) {
+      img = images.item(i)
+      // console.log(img);
+      currImg = img.children[0].src;
+      // console.log(currImg);
+      if (currImg && currImg.length > 0) {
+        // console.log(currImg)
+        if (!oldImgs.includes(currImg)) {
+          oldImgs.push(currImg);
+          // console.log("sending photo over!");
+          success = sendPhoto(currImg)
+          if (success == true) {
+            createPopup("Image may have PII")
+          }
+        }
+      }
+   }
     if (text.length > 0) {
       curMsg = text[0].innerText;
       if (curMsg != oldMsg) {
@@ -195,17 +216,6 @@ async function checkText() {
         //await sleep(500);
         // Awaits response from server
         // receiveData();
-      }
-    }
-    if (img.length > 0) {
-      currImg = img;
-      if (currImg != oldImg) {
-        oldImg = currImg;
-        imgURL = img.src
-        success = sendPhoto(imgURL)
-        if (success == true) {
-          createPopup("Image may have PII")
-        }
       }
     }
     await sleep(2000);
