@@ -81,11 +81,11 @@ indexRouter.post('/api/text', function(req, res) {
 indexRouter.post('/api/img', function(req, res){
   let creds = new CognitiveServicesCredentials("08b28c9251ea4c0fb88f4fff6044f350");
   let client = new ContentModeratorAPIClient(creds, "https://tartanhackstest.cognitiveservices.azure.com/");
-
+  console.log(req.body.text);
   client.imageModeration.oCRUrlInput('eng', "application/json", 
   {"dataRepresentation": "URL", "value": req.body.text}, (err, result, req, reqs) => {
-  if (err) {res.send("false"); return;}
-  //console.log(result);
+  if (err) {res.send("false"); throw err;}
+  console.log(result);
   var parse = result.text.replace(/(\r\n|\n|\r)/gm,"");
   console.log(parse);
 
