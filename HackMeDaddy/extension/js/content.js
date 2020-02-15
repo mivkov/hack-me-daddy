@@ -32,10 +32,22 @@ complete = function(obj, status) {
 
 success = function(data, status, obj) {
   //console.log("Success");
-  console.log(data[0].text);
-  console.log(data[0]);
+  //console.log(data[0].text);
+  //console.log(data[0]);
   console.log(data);
   console.log(JSON.stringify(data));
+  //the thing that does not work
+  /*
+  var text = document.getElementsByClassName('_1mf _1mj');
+  if (text.length > 0) {
+    oldText = text[0].innerHTML
+    var index = innerHTML.indexOf(text);
+    if (index >= 0) { 
+      innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+      inputText.innerHTML = innerHTML;
+    }*/
+  
+ // curMsg = text[0].innerText;
   //console.log(JSON.parse(data.message));
   //console.log(JSON.stringify(data.message));
   //console.log(data.message);
@@ -135,7 +147,7 @@ async function checkText() {
       curMsg = text[0].innerText;
       if (curMsg != oldMsg) {
         oldMsg = curMsg;
-        //createPopup(oldMsg);
+        createPopup(oldMsg);
         // Sends the updated message to server
         console.log("found a new message");
         sendData(oldMsg);
