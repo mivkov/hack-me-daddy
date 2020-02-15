@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .welcome 
+      .h1 Welcome
+    form
+      .form-group
+        label(for='facebookURL')
+        input#facebookURL.form-control(type='text', placeholder='Enter your Facebook URL')
+      button.btn.btn-primary(type='submit') Submit
+
+ 
+  

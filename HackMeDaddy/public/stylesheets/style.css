@@ -1,6 +1,21 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightslategray;
+}
+
+nav {
+  
+}
+
+content {
+  padding: 50px;
+}
+
+.welcome {
+  text-align: center;
+  padding-top: 80px;
+  padding-top: 50px;
+
 }
 
 a {
