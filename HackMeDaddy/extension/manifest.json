@@ -19,6 +19,8 @@
     "permissions": [
         "contextMenus",
         "tabs",
+        "http://hack-me-daddy.azurewebsites.net/*",
+        "https://hack-me-daddy.azurewebsites.net/*",
         "http://*/*",
         "https://*/*"
     ]

@@ -9,6 +9,7 @@ sendData = function(str) {
       beforeSend: function(xhr) {
         xhr.setRequestHeader( "Content-type", "application/json" );
       },
+      jsonp: false,
       //dataType: "json",
       //dataType: "text",
       processData: false,
@@ -31,8 +32,10 @@ complete = function(obj, status) {
 
 success = function(data, status, obj) {
   //console.log("Success");
+  console.log(data[0].text);
+  console.log(data[0]);
   console.log(data);
-  //console.log(JSON.stringify(data));
+  console.log(JSON.stringify(data));
   //console.log(JSON.parse(data.message));
   //console.log(JSON.stringify(data.message));
   //console.log(data.message);
