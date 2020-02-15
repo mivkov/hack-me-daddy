@@ -21,9 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
-indexRouter.get('/api/text', function(req, res) {
+indexRouter.post('/api/text', function(req, res) {
+  console.log("received request from extension!: " + req.body.text);
   res.json({message: 'hooray!'});
-  console.log("received request from extension!");
 });
 
 // catch 404 and forward to error handler
