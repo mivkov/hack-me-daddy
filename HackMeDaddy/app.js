@@ -32,16 +32,50 @@ indexRouter.post('/api/grabtext', function(req, res){
 
 })
 
+let ps = function (js) {
+  // console.log(js);
+  var v;
+  var elem;
+  var l = []
+  for (v in js.email) {
+    var elem = js.email[v];
+    //console.log(elem);
+    l.push([elem.index, elem.index + elem.text.length]);
+  }
+  for (v in js.sSN) {
+    var elem = js.sSN[v];
+    //console.log(elem);
+    l.push([elem.index, elem.index + elem.text.length]);
+  }
+  for (v in js.iPA) {
+    var elem = js.iPA[v];
+    //console.log(elem);
+    l.push([elem.index, elem.index + elem.text.length]);
+  }
+  for (v in js.address) {
+    var elem = js.address[v];
+    //console.log(elem);
+    l.push([elem.index, elem.index + elem.text.length]);
+  }
+  for (v in js.phone) {
+    var elem = js.phone[v];
+    //console.log(elem);
+    l.push([elem.index, elem.index + elem.text.length]);
+  }
+  return l;
+}
+
 indexRouter.post('/api/text', function(req, res) {
   console.log("received request from extension!: " + req.body.text);
+  let pii;
   let creds = new CognitiveServicesCredentials("08b28c9251ea4c0fb88f4fff6044f350");
   let client = new ContentModeratorAPIClient(creds, "https://tartanhackstest.cognitiveservices.azure.com/");
-  client.textModeration.screenText('text/plain', req.body.text, (err, result, req, res) => {
-  if (err) throw err;
-  console.log(result.pII);
+  client.textModeration.screenText('text/plain', req.body.text, (err, result, req, reqs) => {
+  if (err) {res.json([]); return;};
+  pii = result.pII;
+  // console.log(result.pII);
+  res.json(pii ? ps(pii) : []);
   });
-
-  res.json([result.pII]);
 });
 // app.use('/api/text/', function(req, res) {
 //   console.log("received request from extension!: " + req.body.text);
