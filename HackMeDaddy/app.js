@@ -37,30 +37,30 @@ let ps = function (js) {
   var v;
   var elem;
   var l = []
-  for (v in js.email) {
-    var elem = js.email[v];
-    //console.log(elem);
-    l.push([elem.index, elem.index + elem.text.length]);
-  }
   for (v in js.sSN) {
     var elem = js.sSN[v];
     //console.log(elem);
-    l.push([elem.index, elem.index + elem.text.length]);
+    l.push(["SSN: ", elem.text]);
   }
   for (v in js.iPA) {
     var elem = js.iPA[v];
     //console.log(elem);
-    l.push([elem.index, elem.index + elem.text.length]);
-  }
-  for (v in js.address) {
-    var elem = js.address[v];
-    //console.log(elem);
-    l.push([elem.index, elem.index + elem.text.length]);
+    l.push(["IP: ", elem.text]);
   }
   for (v in js.phone) {
     var elem = js.phone[v];
     //console.log(elem);
-    l.push([elem.index, elem.index + elem.text.length]);
+    l.push(["Phone: ", elem.text]);
+  }
+  for (v in js.address) {
+    var elem = js.address[v];
+    //console.log(elem);
+    l.push(["Address: ", elem.text]);
+  }
+  for (v in js.email) {
+    var elem = js.email[v];
+    //console.log(elem);
+    l.push(["Email: ", elem.text]);
   }
   return l;
 }
