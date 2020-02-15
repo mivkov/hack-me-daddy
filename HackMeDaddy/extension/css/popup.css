@@ -1,0 +1,65 @@
+.fragment {
+    font-size: 14px;
+    font-family: tahoma;
+    height: 200px;
+    width: 500px;
+    border: 1px solid #ccc;
+    background-color: rgb(255, 255, 255);
+    color: #555;
+    position: fixed;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    overflow: scroll;
+}
+
+.fragment:hover {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+}
+
+#fragment-text {
+    white-space:pre-wrap;
+}
+
+.fragment h3 {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    color: #369;
+}
+.fragment h4 {
+    padding: 0;
+    margin: 0;
+    color: #000;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 4px
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+#close {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+}
+
+#close:hover {
+    cursor: pointer;
+}
+x
+Simplification
+HEllo fucker
