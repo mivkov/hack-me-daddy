@@ -84,7 +84,7 @@ indexRouter.post('/api/img', function(req, res){
 
   client.imageModeration.oCRUrlInput('eng', "application/json", 
   {"dataRepresentation": "URL", "value": req.body.text}, (err, result, req, reqs) => {
-  if (err) {res.send("false"); throw err;}
+  if (err) {res.send("false"); return;}
   //console.log(result);
   var parse = result.text.replace(/(\r\n|\n|\r)/gm,"");
   console.log(parse);
