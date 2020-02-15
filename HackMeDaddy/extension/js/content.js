@@ -2,17 +2,87 @@ sendData = function(str) {
   var query = str
   js = JSON.stringify({"text": query})
 
-  // TO BE DETERMINED
   url = "https://hack-me-daddy.azurewebsites.net/api/text"
   $.ajax({
       url: url,
       method: 'POST',
-      dataType: "json",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader( "Content-type", "application/json" );
+      },
+      //dataType: "json",
+      //dataType: "text",
       processData: false,
+      // contentType: "text/plain; charset=utf-8",
       contentType: "application/json; charset=utf-8",
-      data: js
+      //data: query,
+      data: js,
+      success: success,
+      error: error,
+      complete: complete
+  });
+
+}
+
+complete = function(obj, status) {
+  //console.log("Complete");
+  //console.log(obj);
+  //console.log(status);
+}
+
+success = function(data, status, obj) {
+  //console.log("Success");
+  console.log(data);
+  //console.log(JSON.stringify(data));
+  //console.log(JSON.parse(data.message));
+  //console.log(JSON.stringify(data.message));
+  //console.log(data.message);
+  //console.log(status);
+  //console.log(obj);
+}
+
+error = function(obj, status, errThrow) {
+  //console.log("oh FUCK");
+  //console.log(obj);
+  //console.log(status);
+  //console.log(errThrow);
+}
+  /*
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {requested: "createDiv", data: res.data}, function(response) {
+          console.log("Success");
+      });
+  });
+  */
+
+
+receiveData = function() {
+  url = "https://hack-me-daddy.azurewebsites.net/api/text"
+
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log("added a listener");
+      console.log(request.data);
+      console.log(sendResponse);
+    });
+}
+/*
+  $.get(url, function(data,status){
+    console.log('${data}');
   });
 }
+  $.ajax({
+    url: url,
+    method: 'GET',
+    success: function(result){
+      console.log("yuhyuhyuh");
+      console.log(result);
+    },
+    error: function(error){
+      console.log(error);
+    }
+  });
+}
+*/
 
 closeDiv = function(){
   this.parentNode.parentNode
@@ -62,9 +132,14 @@ async function checkText() {
       curMsg = text[0].innerText;
       if (curMsg != oldMsg) {
         oldMsg = curMsg;
-        createPopup(oldMsg);
-        sendData(oldMsg);
+        //createPopup(oldMsg);
+        // Sends the updated message to server
         console.log("found a new message");
+        sendData(oldMsg);
+        //await sleep(500);
+        // Awaits response from server
+        // receiveData();
+        console.log(":(")
       }
     }
     await sleep(2000);
