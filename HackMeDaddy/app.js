@@ -32,7 +32,7 @@ indexRouter.post('/api/grabtext', function(req, res){
 
 })
 
-let ps = function (js) {
+let pp = function (js) {
   // console.log(js);
   var v;
   var elem;
@@ -40,27 +40,27 @@ let ps = function (js) {
   for (v in js.sSN) {
     var elem = js.sSN[v];
     //console.log(elem);
-    l.push(["SSN: ", elem.text]);
+    l.push("SSN: " + elem.text);
   }
   for (v in js.iPA) {
     var elem = js.iPA[v];
     //console.log(elem);
-    l.push(["IP: ", elem.text]);
+    l.push("IP: " + elem.text);
   }
   for (v in js.phone) {
     var elem = js.phone[v];
     //console.log(elem);
-    l.push(["Phone: ", elem.text]);
+    l.push("Phone: " + elem.text);
   }
   for (v in js.address) {
     var elem = js.address[v];
     //console.log(elem);
-    l.push(["Address: ", elem.text]);
+    l.push("Address: " + elem.text);
   }
   for (v in js.email) {
     var elem = js.email[v];
     //console.log(elem);
-    l.push(["Email: ", elem.text]);
+    l.push("Email: " + elem.text);
   }
   return l;
 }
@@ -71,10 +71,30 @@ indexRouter.post('/api/text', function(req, res) {
   let creds = new CognitiveServicesCredentials("08b28c9251ea4c0fb88f4fff6044f350");
   let client = new ContentModeratorAPIClient(creds, "https://tartanhackstest.cognitiveservices.azure.com/");
   client.textModeration.screenText('text/plain', req.body.text, (err, result, req, reqs) => {
-  if (err) {res.json([]); return;};
+  if (err) {res.json([]); return;}
   pii = result.pII;
   // console.log(result.pII);
-  res.json(pii ? ps(pii) : []);
+  res.json(pii ? pp(pii) : []);
+  });
+});
+
+indexRouter.post('/api/img', function(req, res){
+  let creds = new CognitiveServicesCredentials("08b28c9251ea4c0fb88f4fff6044f350");
+  let client = new ContentModeratorAPIClient(creds, "https://tartanhackstest.cognitiveservices.azure.com/");
+
+  client.imageModeration.oCRUrlInput('eng', "application/json", 
+  {"dataRepresentation": "URL", "value": req.body.text}, (err, result, req, reqs) => {
+  if (err) {res.send("false"); throw err;}
+  //console.log(result);
+  var parse = result.text.replace(/(\r\n|\n|\r)/gm,"");
+  console.log(parse);
+
+    client.textModeration.screenText('text/plain', parse, (err, result, req, reqs) => {
+      if (err) {res.json("false"); return;}
+      let pii = result.pII;
+      res.send(pii && (pii.sSN.length > 0 || pii.iPA.length > 0 || pii.phone.length > 0
+        || pii.address.length > 0 || pii.email.length > 0) ? "true" : "false");
+    });
   });
 });
 // app.use('/api/text/', function(req, res) {

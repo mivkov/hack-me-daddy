@@ -7,6 +7,14 @@ nav {
   
 }
 
+.about {
+  padding: 20px;
+}
+
+.about h4 {
+  text-align: center;
+}
+
 content {
   padding: 50px;
 }
