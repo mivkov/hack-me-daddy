@@ -1,3 +1,5 @@
+This project won TartanHacks 2020 Best Security Hack!
+
 # Inspiration
 We’ve all heard the horror stories: one day, some Instagram influencer or musical artist posts a picture of themselves on social media. The next day, a deranged fan stalks them, and their encounter makes the headlines. Or maybe, more innocuously, you’ve seen one of your acquaintances accidentally give away some personally identifiable information in a photo or text, like their phone number or their address. The ubiquitous reach of social media makes security and privacy a precious commodity in the modern day. Our application, Social Scrubber, aims to help people filter potential identifying information out of their social media posts.
 
