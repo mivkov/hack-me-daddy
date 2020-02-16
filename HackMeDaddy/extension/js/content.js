@@ -205,18 +205,30 @@ async function checkText() {
         }
       }
    }
+  
     if (text.length > 0) {
-      curMsg = text[0].innerText;
-      if (curMsg != oldMsg) {
-        oldMsg = curMsg;
-        ////////addd in stuff about length of returned message later!!!!
-        // Sends the updated message to server
-        console.log("found a new message");
-        sendText(oldMsg);
-        //await sleep(500);
-        // Awaits response from server
-        // receiveData();
+      tempMsg = ""
+      for (i=0; i<text.length; i++) {
+        tempMsg = tempMsg + text[i].innerText;
       }
+      if (tempMsg != oldMsg) {
+        oldMsg = tempMsg;
+        sendText(oldMsg);
+      }
+      /*
+      oldMsg = curMsg;
+        curMsg = text[i].innerText;
+        if (curMsg != oldMsg) {
+          oldMsg = curMsg;
+          ////////addd in stuff about length of returned message later!!!!
+          // Sends the updated message to server
+          console.log("found a new message");
+          sendText(oldMsg);
+          //await sleep(500);
+          // Awaits response from server
+          // receiveData();
+        }
+        */
     }
     await sleep(2000);
   }
